@@ -1,0 +1,13 @@
+temp <- c(32, 35, 29, 40, 38)
+
+if (all(temp >= 30)) {
+  print("All days were hot (>=30)")
+} else {
+  print("Not all days were hot")
+}
+
+if (any(temp < 30)) {
+  print("At least one day was below 30")
+} else {
+  print("No day was below 30")
+}

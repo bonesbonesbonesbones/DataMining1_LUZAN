@@ -1,0 +1,32 @@
+library(arules)
+library(arulesViz)
+
+data("Groceries")
+
+itemFrequencyPlot(
+  Groceries, 
+  topN = 20, 
+  type = "absolute", 
+  main = "Absolute Item Frequency for Top 20 Items"
+)
+
+rules <- apriori(
+  Groceries,
+  parameter = list(support = 0.001, confidence = 0.5)
+)
+
+rules_sorted <- sort(rules, by = "lift", decreasing = TRUE)
+
+inspect(rules_sorted[1:10])
+
+milk_rules <- subset(rules, subset = rhs %in% "whole milk")
+
+inspect(sort(milk_rules, by = "confidence")[1:5])
+
+plot(rules)
+
+top_rules_20 <- rules_sorted[1:20]
+plot(top_rules_20, method = "graph", engine = "htmlwidget")
+
+plot(top_rules_20, method = "grouped")
+
